@@ -1,0 +1,26 @@
+{
+  "name": "balanced-bst",
+  "version": "1.0.0",
+  "description": "This is an implementation of balanced binary search tree.",
+  "main": "index.js",
+  "scripts": {
+    "test": "node index"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/RahmatAT11/project-balanced-bst.git"
+  },
+  "keywords": [
+    "dsa",
+    "data-structures",
+    "algorithms",
+    "binary-search-tree",
+    "balanced-binary-search-tree"
+  ],
+  "author": "terika",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RahmatAT11/project-balanced-bst/issues"
+  },
+  "homepage": "https://github.com/RahmatAT11/project-balanced-bst#readme"
+}
