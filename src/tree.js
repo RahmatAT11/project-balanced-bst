@@ -25,27 +25,47 @@ const Tree = (arr) => {
     const mid = parseInt((start + end) / 2);
     const node = Node(arr[mid]);
 
-    node.left = buildTree(arr, start, mid - 1);
-    node.right = buildTree(arr, mid + 1, end);
+    node.leftNode = buildTree(arr, start, mid - 1);
+    node.rightNode = buildTree(arr, mid + 1, end);
     return node;
   };
 
   const sortedArr = processArr(arr);
   let root = buildTree(sortedArr, 0, sortedArr.length - 1);
 
-  return root;
+  const insert = (currNode, val) => {
+    if (currNode === null) {
+      return Node(val);
+    }
+
+    if (currNode.data === val) {
+      return currNode;
+    }
+
+    if (val < currNode.data) {
+      currNode.leftNode = insert(currNode.leftNode, val);
+      console.log("Goes left");
+    } else if (val > currNode.data) {
+      currNode.rightNode = insert(currNode.rightNode, val);
+      console.log("Goes right");
+    }
+
+    return currNode;
+  };
+
+  return { root, insert };
 };
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
   if (node === null) {
     return;
   }
-  if (node.right !== null) {
-    prettyPrint(node.right, `${prefix}${isLeft ? "│   " : "    "}`, false);
+  if (node.rightNode !== null) {
+    prettyPrint(node.rightNode, `${prefix}${isLeft ? "│   " : "    "}`, false);
   }
   console.log(`${prefix}${isLeft ? "└── " : "┌── "}${node.data}`);
-  if (node.left !== null) {
-    prettyPrint(node.left, `${prefix}${isLeft ? "    " : "│   "}`, true);
+  if (node.leftNode !== null) {
+    prettyPrint(node.leftNode, `${prefix}${isLeft ? "    " : "│   "}`, true);
   }
 };
 
