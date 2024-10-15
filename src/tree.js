@@ -53,7 +53,42 @@ const Tree = (arr) => {
     return currNode;
   };
 
-  return { root, insert };
+  const getSuccessor = (currNode) => {
+    currNode = currNode.right;
+    while (currNode !== null && currNode.leftNode !== null) {
+        currNode = currNode.leftNode;
+    }
+    return currNode;
+}
+
+  const del = (currNode, val) => {
+    if (currNode === null) {
+      return currNode;
+    }
+
+    if (currNode.data > val) {
+      currNode.leftNode = del(currNode.leftNode, val);
+    } else if (currNode.data < val) {
+      currNode.rightNode = del(currNode.rightNode, val);
+    } else {
+      // currNode has 0 or 1 right child
+      if (currNode.leftNode === null) 
+        return currNode.rightNode;
+
+      // currNode has only left child
+      if (currNode.rightNode === null) 
+          return currNode.leftNode;
+
+      // When both children are present
+      let succ = getSuccessor(currNode);
+      currNode.data = succ.data;
+      currNode.rightNode = delNode(currNode.rightNode, succ.data);
+    }
+
+    return currNode;
+  };
+
+  return { root, insert, del };
 };
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
