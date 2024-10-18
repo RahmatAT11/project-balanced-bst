@@ -104,7 +104,33 @@ const Tree = (arr) => {
     return currNode;
   };
 
-  return { root, insert, del, find };
+  const levelOrder = (callback, currNode = root) => {
+    if (!callback) {
+      throw Error("A callback is required.")
+    }
+    
+    if (currNode === null) {
+      return;
+    }
+
+    const queue = [currNode];
+
+    while (queue.length > 0) {
+      let current = queue.shift();
+
+      callback(current);
+
+      if (current.leftNode) {
+        queue.push(current.leftNode);
+      }
+
+      if (current.rightNode) {
+        queue.push(current.rightNode);
+      }
+    }
+  };
+
+  return { root, insert, del, find, levelOrder };
 };
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
