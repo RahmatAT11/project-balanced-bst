@@ -88,7 +88,23 @@ const Tree = (arr) => {
     return currNode;
   };
 
-  return { root, insert, del };
+  const find = (val) => {
+    let currNode = root;
+
+    while(currNode.data !== val) {  
+      if (val < currNode.data) {
+        currNode = currNode.leftNode;
+        console.log("Goes left");
+      } else if (val > currNode.data) {
+        currNode = currNode.rightNode;
+        console.log("Goes right");
+      }
+    }
+
+    return currNode;
+  };
+
+  return { root, insert, del, find };
 };
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
