@@ -162,7 +162,23 @@ const Tree = (arr) => {
     preOrder(callback, currNode.rightNode);
   };
 
-  return { root, insert, del, find, levelOrder, inOrder, preOrder };
+  const postOrder = (callback, currNode = root) => {
+    if (!callback) {
+      throw Error("A callback is required.")
+    }
+    
+    if (currNode === null) {
+      return;
+    }
+    
+    postOrder(callback, currNode.leftNode);
+    
+    postOrder(callback, currNode.rightNode);
+    
+    callback(currNode);
+  };
+
+  return { root, insert, del, find, levelOrder, inOrder, preOrder, postOrder };
 };
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
