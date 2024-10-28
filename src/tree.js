@@ -178,7 +178,34 @@ const Tree = (arr) => {
     callback(currNode);
   };
 
-  return { root, insert, del, find, levelOrder, inOrder, preOrder, postOrder };
+  const height = (node) => {
+    let totalHeight = [0, 0];
+
+    if (node === null) {
+      return;
+    }
+    
+    if (node.rightNode === null && node.leftNode === null) {
+      return 0;
+    }
+
+    if (node.leftNode === null) {
+      return 1;
+    } else {
+      totalHeight[0] += height(node.leftNode) + 1;
+    }
+
+    if (node.rightNode === null) {
+      return 1;
+    } else {
+      totalHeight[1] += height(node.rightNode) + 1;
+    }
+
+
+    return totalHeight[0] >= totalHeight[1] ? totalHeight[0] : totalHeight[1];
+  };
+
+  return { root, insert, del, find, levelOrder, inOrder, preOrder, postOrder, height };
 };
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
