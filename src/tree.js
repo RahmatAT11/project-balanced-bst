@@ -44,10 +44,8 @@ const Tree = (arr) => {
 
     if (val < currNode.data) {
       currNode.leftNode = insert(currNode.leftNode, val);
-      console.log("Goes left");
     } else if (val > currNode.data) {
       currNode.rightNode = insert(currNode.rightNode, val);
-      console.log("Goes right");
     }
 
     return currNode;
@@ -94,10 +92,8 @@ const Tree = (arr) => {
     while(currNode.data !== val) {  
       if (val < currNode.data) {
         currNode = currNode.leftNode;
-        console.log("Goes left");
       } else if (val > currNode.data) {
         currNode = currNode.rightNode;
-        console.log("Goes right");
       }
     }
 
@@ -184,7 +180,7 @@ const Tree = (arr) => {
     if (node === null) {
       return;
     }
-    
+
     if (node.rightNode === null && node.leftNode === null) {
       return 0;
     }
@@ -205,7 +201,28 @@ const Tree = (arr) => {
     return totalHeight[0] >= totalHeight[1] ? totalHeight[0] : totalHeight[1];
   };
 
-  return { root, insert, del, find, levelOrder, inOrder, preOrder, postOrder, height };
+  const depth = (node) => {
+    let totalDepth = 0;
+    let currNode = root;
+
+    if (node === null) {
+      return;
+    }
+
+    while(node.data !== currNode.data) {  
+      if (node.data < currNode.data) {
+        currNode = currNode.leftNode;
+      } else if (node.data > currNode.data) {
+        currNode = currNode.rightNode;
+      }
+
+      totalDepth++;
+    }
+
+    return totalDepth;
+  };
+
+  return { root, insert, del, find, levelOrder, inOrder, preOrder, postOrder, height, depth };
 };
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
