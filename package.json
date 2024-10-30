@@ -1,7 +1,7 @@
 {
   "name": "@terika/balanced-bst",
   "version": "1.0.1",
-  "description": "This is an implementation of balanced binary search tree.",
+  "description": "This is an implementation of balanced binary search tree with pretty print.",
   "main": "index.js",
   "scripts": {
     "start": "node index"
