@@ -17,6 +17,8 @@ const Tree = (arr) => {
     return sortedArr;
   };
 
+  let heightDiff = 0;
+
   const buildTree = (arr, start, end) => {
     if (start > end) {
       return null;
@@ -27,6 +29,7 @@ const Tree = (arr) => {
 
     node.leftNode = buildTree(arr, start, mid - 1);
     node.rightNode = buildTree(arr, mid + 1, end);
+
     return node;
   };
 
@@ -222,7 +225,13 @@ const Tree = (arr) => {
     return totalDepth;
   };
 
-  return { root, insert, del, find, levelOrder, inOrder, preOrder, postOrder, height, depth };
+  const isBalance = () => {
+    heightDiff = Math.abs(height(root.leftNode) - height(root.rightNode));
+
+    return heightDiff <= 1;
+  };
+
+  return { root, insert, del, find, levelOrder, inOrder, preOrder, postOrder, height, depth, isBalance };
 };
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
