@@ -225,13 +225,37 @@ const Tree = (arr) => {
     return totalDepth;
   };
 
+
+  const convertTreeToArray = () => {
+    const arr = [];
+
+    inOrder((node) => {
+      arr.push(node.data);
+    }, root.leftNode);
+
+    inOrder((node) => {
+      arr.push(node.data);
+    }, root.rightNode);
+
+    arr.push(root.data)
+
+    return processArr(arr);
+  };
+
   const isBalance = () => {
     heightDiff = Math.abs(height(root.leftNode) - height(root.rightNode));
 
     return heightDiff <= 1;
   };
 
-  return { root, insert, del, find, levelOrder, inOrder, preOrder, postOrder, height, depth, isBalance };
+  const rebalance = () => {
+    if (!isBalance()) {
+      const newArr = convertTreeToArray();
+      root = buildTree(newArr);
+    }
+  };
+
+  return { root, insert, del, find, levelOrder, inOrder, preOrder, postOrder, height, depth, isBalance, rebalance };
 };
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
