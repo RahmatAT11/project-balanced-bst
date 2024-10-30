@@ -57,10 +57,10 @@ const Tree = (arr) => {
   const getSuccessor = (currNode) => {
     currNode = currNode.right;
     while (currNode !== null && currNode.leftNode !== null) {
-        currNode = currNode.leftNode;
+      currNode = currNode.leftNode;
     }
     return currNode;
-}
+  };
 
   const del = (currNode, val) => {
     if (currNode === null) {
@@ -73,12 +73,10 @@ const Tree = (arr) => {
       currNode.rightNode = del(currNode.rightNode, val);
     } else {
       // currNode has 0 or 1 right child
-      if (currNode.leftNode === null) 
-        return currNode.rightNode;
+      if (currNode.leftNode === null) return currNode.rightNode;
 
       // currNode has only left child
-      if (currNode.rightNode === null) 
-          return currNode.leftNode;
+      if (currNode.rightNode === null) return currNode.leftNode;
 
       // When both children are present
       let succ = getSuccessor(currNode);
@@ -92,7 +90,7 @@ const Tree = (arr) => {
   const find = (val) => {
     let currNode = root;
 
-    while(currNode.data !== val) {  
+    while (currNode.data !== val) {
       if (val < currNode.data) {
         currNode = currNode.leftNode;
       } else if (val > currNode.data) {
@@ -105,9 +103,9 @@ const Tree = (arr) => {
 
   const levelOrder = (callback, currNode = root) => {
     if (!callback) {
-      throw Error("A callback is required.")
+      throw Error("A callback is required.");
     }
-    
+
     if (currNode === null) {
       return;
     }
@@ -131,9 +129,9 @@ const Tree = (arr) => {
 
   const inOrder = (callback, currNode = root) => {
     if (!callback) {
-      throw Error("A callback is required.")
+      throw Error("A callback is required.");
     }
-    
+
     if (currNode === null) {
       return;
     }
@@ -147,9 +145,9 @@ const Tree = (arr) => {
 
   const preOrder = (callback, currNode = root) => {
     if (!callback) {
-      throw Error("A callback is required.")
+      throw Error("A callback is required.");
     }
-    
+
     if (currNode === null) {
       return;
     }
@@ -163,17 +161,17 @@ const Tree = (arr) => {
 
   const postOrder = (callback, currNode = root) => {
     if (!callback) {
-      throw Error("A callback is required.")
+      throw Error("A callback is required.");
     }
-    
+
     if (currNode === null) {
       return;
     }
-    
+
     postOrder(callback, currNode.leftNode);
-    
+
     postOrder(callback, currNode.rightNode);
-    
+
     callback(currNode);
   };
 
@@ -200,7 +198,6 @@ const Tree = (arr) => {
       totalHeight[1] += height(node.rightNode) + 1;
     }
 
-
     return totalHeight[0] >= totalHeight[1] ? totalHeight[0] : totalHeight[1];
   };
 
@@ -212,7 +209,7 @@ const Tree = (arr) => {
       return;
     }
 
-    while(node.data !== currNode.data) {  
+    while (node.data !== currNode.data) {
       if (node.data < currNode.data) {
         currNode = currNode.leftNode;
       } else if (node.data > currNode.data) {
@@ -225,7 +222,6 @@ const Tree = (arr) => {
     return totalDepth;
   };
 
-
   const convertTreeToArray = () => {
     const arr = [];
 
@@ -237,7 +233,7 @@ const Tree = (arr) => {
       arr.push(node.data);
     }, root.rightNode);
 
-    arr.push(root.data)
+    arr.push(root.data);
 
     return processArr(arr);
   };
@@ -251,11 +247,26 @@ const Tree = (arr) => {
   const rebalance = () => {
     if (!isBalance()) {
       const newArr = convertTreeToArray();
-      root = buildTree(newArr);
+      root = buildTree(newArr, 0, newArr.length - 1);
     }
   };
 
-  return { root, insert, del, find, levelOrder, inOrder, preOrder, postOrder, height, depth, isBalance, rebalance };
+  return {
+    get root() {
+      return root;
+    },
+    insert,
+    del,
+    find,
+    levelOrder,
+    inOrder,
+    preOrder,
+    postOrder,
+    height,
+    depth,
+    isBalance,
+    rebalance,
+  };
 };
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
