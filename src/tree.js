@@ -176,29 +176,15 @@ const Tree = (arr) => {
   };
 
   const height = (node) => {
-    let totalHeight = [0, 0];
+    // If the node is null, return -1 (since height is the number of edges)
+    if (!node) return -1;
 
-    if (node === null) {
-      return;
-    }
+    // Get the height of the left and right subtrees
+    const leftHeight = height(node.leftNode);
+    const rightHeight = height(node.rightNode);
 
-    if (node.rightNode === null && node.leftNode === null) {
-      return 0;
-    }
-
-    if (node.leftNode === null) {
-      return 1;
-    } else {
-      totalHeight[0] += height(node.leftNode) + 1;
-    }
-
-    if (node.rightNode === null) {
-      return 1;
-    } else {
-      totalHeight[1] += height(node.rightNode) + 1;
-    }
-
-    return totalHeight[0] >= totalHeight[1] ? totalHeight[0] : totalHeight[1];
+    // The height of the current node is the max height of its subtrees plus one
+    return Math.max(leftHeight, rightHeight) + 1;
   };
 
   const depth = (node) => {
