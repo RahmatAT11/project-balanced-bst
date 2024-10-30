@@ -1,3 +1,3 @@
-const { Tree, prettyPrint } = require("./src/tree");
+const { Tree, prettyPrint } = require('./src/tree');
 
-module.exports = { Tree, prettyPrint };
+module.exports = {Tree, prettyPrint}
